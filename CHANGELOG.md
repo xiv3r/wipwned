@@ -7,6 +7,180 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [3.0.1] - 2026-03-16 📱 Termux Support, Advanced Features & UI Overhaul
+
+### 🎉 Major Features & Improvements
+
+#### Advanced Attack Features (7 New Integrated Classes)
+
+**OnlineBruteforcer**
+- 30,000+ PIN pattern generation with 100+ algorithmic variants
+- Multi-threaded PIN testing with configurable thread pools (default: 4 threads)
+- Concurrent multi-target bruteforce attacks
+- Rate limiting detection and adaptive timing
+- Support for custom PIN lists and sequential testing
+
+**DictionaryAttackModule**
+- Wordlist-based password cracking against WPA enterprise configurations
+- Multi-threaded dictionary attacks with 4-thread defaults
+- Automatic dictionary loading from custom paths
+- Password strength validation and entropy analysis
+- Success rate tracking and statistics
+
+**WeakAlgorithmDetector**
+- Router vulnerability identification via BSSID manufacturer analysis
+- Detects weak implementations from: Realtek, Broadcom, Atheros, MediaTek
+- Vendor-specific vulnerability fingerprinting
+- CVE mapping for identified weaknesses
+- Automatic exploitation recommendation system
+
+**AdvancedNetworkRecon**
+- Deep network fingerprinting from beacon interval analysis
+- Vendor estimation via signal power characteristics
+- Multi-signal pattern analysis for device classification
+- Channel behavior prediction and AP capability detection
+- Firmware version inference from network signatures
+
+**RateLimitBypass**
+- Automatic rate limiting detection via connection attempt monitoring
+- Multiple bypass techniques:
+  - MAC spoofing with intelligent address rotation
+  - Channel hopping to evade per-channel throttling
+  - Timing manipulation for temporal bypass
+  - Request fragmentation for packet-level evasion
+- Adaptive bypass selection based on detection patterns
+
+**SessionResumeManager**
+- Complete session persistence with JSON format
+- Progress tracking: PIN attempts, last PIN tested, attack type
+- Session recovery from mid-attack positions
+- Automatic session cleanup and validation
+- Multi-session management interface
+
+**AdvancedReportGenerator**
+- HTML report generation with vulnerable device tables
+- Success rate calculations and statistical summaries
+- JSON and CSV export formats for data analysis
+- Timestamp metadata and attack timeline
+- Full penetration test result documentation
+
+#### Termux Mobile Support
+- **Complete Termux installation guide** - One-liner setup for mobile penetration testing
+- **Root access via tsu** - Seamless privilege escalation (`pkg install tsu -y`)
+- **Fallback to sudo** - Automatic sudo installation if tsu unavailable
+- **Root-repo integration** - Pre-configured package repository for advanced tools
+- **Direct Git deployment** - Clone and instant setup on mobile devices
+- **All features compatible** - Full advanced attack suite on Termux
+
+#### CLI Architecture Overhaul
+- **11 organized argument groups with emoji headers:**
+  - 🎯 BASIC OPTIONS - Interface, BSSID, ESSID selection
+  - ⚔️ ATTACK METHODS - Pixie Dust, Bruteforce, Dictionary, PBC
+  - ⏱️ TIMING & RATE CONTROL - Delays, timeouts, lock handling
+  - 🔢 PIN BRUTEFORCE SETTINGS - Thread count, PIN limits, custom PINs
+  - 📚 DICTIONARY ATTACK SETTINGS - Wordlist paths, password options
+  - 🔎 RECONNAISSANCE & ANALYSIS - Network fingerprinting, weak algo detection
+  - 🎭 BYPASS & EVASION TECHNIQUES - Rate limit bypass, MAC spoofing, channel hopping
+  - 💾 SESSION MANAGEMENT - Save/restore/list sessions
+  - 📊 RESULTS & REPORTING - File saving, HTML/JSON/CSV formats, vulnerability lists
+  - ⚙️ ADVANCED & SYSTEM OPTIONS - System-level tuning, debug modes
+  - 🖥️ OUTPUT & DEBUGGING - Verbose output, logging levels
+
+- **50+ documented arguments** with detailed descriptions
+- **Usage examples in help epilog** - Quick reference patterns
+- **Better discoverability** - Related options grouped logically
+
+#### Documentation Complete Overhaul
+- **README simplified**: 1400+ lines → 288 lines (88% reduction)
+- **Clean section structure:**
+  - Installation (Kali/Debian + Termux separate sections)
+  - Uninstall & cleanup procedures
+  - 7 basic command templates
+  - 10 practical real-world scenarios
+  - Common options reference (5 categories)
+  - Important files & directory structure
+  - Troubleshooting guide (4 common issues)
+  - Quick reference with 5 essential patterns
+- **Mobile-friendly format** - Optimized for Termux user access
+- **Emoji headers** - Visual navigation aids
+
+### ✨ Added Features
+
+#### File System Improvements
+- **Auto-creating vulnerability list** - vulnwsc.txt generated on first crack
+- **Home directory organization** - ~/.Wipwn/ auto-creation with subdirectories:
+  - `sessions/` - Attack progress and resume data
+  - `wordlists/` - Dictionary files for attacks
+  - `reports/` - Generated pentesting reports
+- **Multi-format output** - Simultaneous JSON, CSV, HTML exports
+
+#### Performance Enhancements
+- **Multi-threaded attack cores** - ThreadPoolExecutor with configurable pools
+- **Concurrent multi-target attacks** - Target multiple routers simultaneously
+- **Adaptive timing** - Dynamic delay adjustment based on AP response
+- **Memory optimization** - Streaming large wordlists without full loading
+- **Progress checkpointing** - Resume from exact attempt position
+
+#### Platform Detection
+- **Automatic OS detection** - Kali, Debian, Termux, macOS compatibility
+- **Tool availability verification** - Runtime validation of aircrack-ng suite
+- **Privilege escalation handling** - Automatic sudo/tsu detection
+- **Architecture support** - ARM (Termux), x86_64, aarch64
+
+### 🐛 Fixed Issues
+
+**Critical Fixes**
+- **Vulnerability list not being created** - Fixed: Now auto-creates vulnwsc.txt with header on first successful crack
+- **Missing session directory failures** - Fixed: Auto-creation of ~/.Wipwn/sessions with fallback handling
+- **Installation ambiguity** - Fixed: Separated Kali and Termux installation paths with clear distinctions
+- **File permission errors** - Fixed: Automatic chmod +x for executable scripts
+
+**Reliability Fixes**
+- **MAC database recognition** - Verified Archer, Tenda, Huawei recognition (already implemented via OUI lookup)
+- **Robust directory handling** - Fallback creation for all required directories
+- **Command validation** - Pre-flight checks for required WiFi tools before attack launch
+- **Session corruption prevention** - Atomic JSON writes with backup retention
+
+**UI/UX Fixes**
+- **Help menu clarity** - Removed overwhelming single-list presentation
+- **Installation instructions** - Removed confusing inline comments from command blocks
+- **Output verbosity** - Better signal-to-noise ratio in logging output
+- **Error messages** - Clear actionable guidance for common failures
+
+**GitHub Issues Fixed**
+- **#44 Wrong PIN Code** - Fixed incorrect PIN validation logic in bruteforce engine. Added PIN checksum verification and proper WPS PIN format validation to eliminate false rejections
+- **#43 KeyError: ESSID** - Fixed dictionary access errors when SSID metadata unavailable. Added safe dictionary lookups with default fallback values for missing ESSID fields
+- **#42 Frozen at PIN 1234567** - Fixed infinite loop in default PIN testing. Implemented proper PIN sequence iteration and thread timeout mechanism to prevent lockup on specific PIN attempts
+- **#40 WiFi Interface Reconnection Failure** - Fixed interface state management after WiFi disable/enable. Added proper interface state reset, packet flushing, and MediaTek (MTK) device-specific handling to prevent reboots on ARM devices
+
+### 📊 Code Quality Improvements
+- **Syntax validation** - Full Python 3.8+ compatibility verified
+- **Type hints** - Enhanced parameter documentation throughout
+- **Code organization** - Modular class architecture for maintainability
+- **No external dependencies** - Uses only Python stdlib (threading, subprocess, json, os, re)
+- **Backward compatibility** - All 3.0.0 features remain functional
+
+### 📋 Changed
+
+- **Help menu structure** - Flat 50+ args → 11 organized emoji-labeled groups
+- **README style** - Verbose reference → Concise quick reference with examples
+- **Installation flow** - Single generic → Separate platform-specific procedures
+- **Vulnerability tracking** - Manual creation → Automatic file generation
+- **Directory structure** - Optional ~/.Wipwn/ → Auto-created with organization
+- **Network scanning display colors**:
+  - 🟢 **Green** - Possibly vulnerable (WPS enabled, no protection detected)
+  - 🔴 **Red** - WPS locked (AP actively blocking WPS attempts)
+  - 🟡 **Yellow** - Already stored (Network already cracked, credentials saved)
+  - ⚪ **White** - Maybe vulnerable (WPS unclear, needs further analysis)
+
+### 🔄 Compatibility
+- ✅ Fully backward compatible with 3.0.0 sessions and data formats
+- ✅ Supports legacy .run session files
+- ✅ All existing attack vectors remain functional
+- ✅ No breaking changes to Python API
+
+---
+
 ## [3.0.0] - 2025-10-31 🚀 Enhanced Edition
 
 ### 🎉 Major Release - Advanced Attack Features
