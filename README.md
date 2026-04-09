@@ -6,6 +6,12 @@ Fast and automated WiFi WPS PIN cracking tool with advanced attack features.
 
 ---
 
+<p align="center">
+  <a href="https://m.me/j/AbbEqWUTxCqdYG8j/?send_source=gc%3Acopy_invite_link_c">
+    <img src="https://img.shields.io/badge/Join%20Our%20Messenger%20Community-0084FF?style=for-the-badge&logo=messenger&logoColor=white" />
+  </a>
+</p>
+
 ## 📦 Installation
 
 ### Prerequisites
