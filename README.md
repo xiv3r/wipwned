@@ -289,6 +289,57 @@ sudo python3 main.py -i wlan0 -b BSSID --dictionary-attack --wordlist wordlist.t
 
 ---
 
+## 💖 Support / Donations
+
+If you find this project useful, consider supporting its development 🙌
+
+---
+
+## 🪙 Donate
+
+### 🪙 Binance Pay (Recommended)
+
+* **UID:** `1189173734`
+
+---
+
+### ⚡ USDT (TRC20)
+
+```text
+0x6b21c1acb94f83b52d1e33bb831527e10133a8e0f705b45cc23a644fa897e24c
+```
+
+---
+
+### 🟠 Bitcoin (BTC)
+
+```text
+bc1puekadn2dnwc0vyzy0xwl6564geml2kt3ymhvcwvvkdxadpny2l4qy7xxa0
+```
+
+---
+
+### 🪶 Litecoin (LTC)
+
+```text
+4AjFZj5hqjhTF18SJeDyFXHYaKrimHbjSKJok7MqizN6
+```
+
+---
+
+### 📱 bKash (Merchant)
+
+* **Number:** `01615827704`
+* **Reference:** `Donation`
+
+---
+
+### 🙏 Thank You
+
+Every contribution helps keep this project alive ❤️
+
+---
+
 ## ⚖️ Legal Notice
 
 **This tool is for authorized security testing ONLY.**
